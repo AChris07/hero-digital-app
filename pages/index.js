@@ -1,8 +1,8 @@
 import Head from 'next/head';
-import FormButton from '../components/FormButton';
-import FormCheck from '../components/FormCheck';
-import FormInput from '../components/FormInput';
-import FormSelect from '../components/FormSelect';
+import FormButton from '../components/forms/FormButton';
+import FormCheck from '../components/forms/FormCheck';
+import FormInput from '../components/forms/FormInput';
+import FormSelect from '../components/forms/FormSelect';
 
 export default function Home() {
   return (

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import FormCheck from '../components/FormCheck';
+import FormCheck from '../components/forms/FormCheck';
 
 export default {
   title: 'Forms/Checkbox',

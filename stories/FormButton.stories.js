@@ -1,6 +1,6 @@
 import React from 'react';
 
-import FormButton from '../components/FormButton';
+import FormButton from '../components/forms/FormButton';
 
 export default {
   title: 'Forms/Button',
