@@ -5,7 +5,9 @@
   "scripts": {
     "start": "next dev",
     "build": "next build",
-    "start:prod": "next start"
+    "start:prod": "next start",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook"
   },
   "dependencies": {
     "next": "10.2.0",
@@ -16,6 +18,12 @@
     "sass": "^1.32.13"
   },
   "devDependencies": {
+    "@babel/core": "^7.14.2",
+    "@storybook/addon-actions": "^6.2.9",
+    "@storybook/addon-essentials": "^6.2.9",
+    "@storybook/addon-links": "^6.2.9",
+    "@storybook/react": "^6.2.9",
+    "babel-loader": "^8.2.2",
     "eslint": "^7.26.0",
     "eslint-config-airbnb": "^18.2.1",
     "eslint-plugin-import": "^2.23.2",

@@ -2,7 +2,7 @@ import { useUIDSeed } from 'react-uid';
 import PropTypes from 'prop-types';
 
 function FormSelect({
-  label, options, value, ...otherProps
+  onChange, label, options, value, ...otherProps
 }) {
   const seed = useUIDSeed();
   const labelComponent = label && (
@@ -12,7 +12,7 @@ function FormSelect({
   return (
     <div {...otherProps}>
       {labelComponent}
-      <select id={seed('input')} value={value}>
+      <select id={seed('input')} onChange={onChange} value={value}>
         {options.map((opt) => (
           <option key={seed(opt)} value={opt.value}>
             {opt.label}
@@ -24,6 +24,7 @@ function FormSelect({
 }
 
 FormSelect.propTypes = {
+  onChange: PropTypes.func.isRequired,
   label: PropTypes.string,
   options: PropTypes.arrayOf(
     PropTypes.shape({
