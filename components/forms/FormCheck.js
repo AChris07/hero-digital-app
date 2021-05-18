@@ -34,12 +34,14 @@ function FormCheck({
 }
 
 FormCheck.propTypes = {
+  className: PropTypes.string,
   onChange: PropTypes.func.isRequired,
   label: PropTypes.string,
   isChecked: PropTypes.bool,
 };
 
 FormCheck.defaultProps = {
+  className: '',
   label: undefined,
   isChecked: false,
 };

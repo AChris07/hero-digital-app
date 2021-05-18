@@ -23,5 +23,11 @@ WithPlaceholder.args = {
   placeholder: 'John',
 };
 
+export const Required = Template.bind({});
+Required.args = {
+  label: 'First Name',
+  required: true,
+};
+
 export const WithoutLabel = Template.bind({});
 WithoutLabel.args = {};
