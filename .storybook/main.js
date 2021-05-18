@@ -6,13 +6,26 @@ module.exports = {
   addons: [
     "@storybook/addon-links",
     "@storybook/addon-essentials",
-    {
-      name: "@storybook/preset-scss",
-      options: {
-        cssLoaderOptions: {
-          url: false,
-        },
-      },
-    },
+    "@storybook/preset-scss",
   ],
+  webpackFinal: async (config) => {
+    config.module.rules = config.module.rules.map((rule) => {
+      if (rule.test.toString().includes("svg")) {
+        const test = rule.test
+          .toString()
+          .replace("svg|", "")
+          .replace(/\//g, "");
+        return { ...rule, test: new RegExp(test) };
+      } else {
+        return rule;
+      }
+    });
+
+    config.module.rules.unshift({
+      test: /\.svg$/,
+      use: ["@svgr/webpack"],
+    });
+
+    return config;
+  },
 };
