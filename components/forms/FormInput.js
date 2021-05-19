@@ -5,6 +5,7 @@ import classNames from 'classnames';
 function FormInput({
   onChange,
   className,
+  disabled,
   label,
   placeholder,
   required,
@@ -25,6 +26,7 @@ function FormInput({
         type="text"
         id={uid}
         className="form-input"
+        disabled={disabled}
         onChange={onChange}
         placeholder={placeholder}
       />
@@ -34,6 +36,7 @@ function FormInput({
 
 FormInput.propTypes = {
   className: PropTypes.string,
+  disabled: PropTypes.bool,
   onChange: PropTypes.func.isRequired,
   label: PropTypes.string,
   placeholder: PropTypes.string,
@@ -42,6 +45,7 @@ FormInput.propTypes = {
 
 FormInput.defaultProps = {
   className: '',
+  disabled: false,
   label: undefined,
   placeholder: undefined,
   required: false,

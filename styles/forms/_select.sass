@@ -20,6 +20,13 @@
   position: relative
   appearance: none
 
+  &:focus
+    border-color: theme.$tertiary-color-dark
+
+  &:disabled
+    background-color: theme.$secondary-bg-color-disabled
+    border-color: theme.$secondary-border-color-disabled
+
 .form-select__native-arrow
   position: absolute
   bottom: 18px
@@ -40,11 +47,28 @@ div.form-select__custom
     border: 2px solid theme.$tertiary-color
     box-shadow: none
     padding: 10px
+    outline: none
 
     min-width: 160px
 
-    &:hover, &:focus
+    &:hover
       border-color: theme.$tertiary-color
+
+    &:focus
+      border-color: theme.$tertiary-color-dark
+
+    &--is-disabled
+      background-color: theme.$secondary-bg-color-disabled
+      border-color: theme.$secondary-border-color-disabled
+
+    &--is-focused
+      border-color: theme.$tertiary-color-dark
+
+      &:hover
+        border-color: theme.$tertiary-color-dark
+
+      & ~ .form-select__custom__menu
+        border-color: theme.$tertiary-color-dark
 
     &--menu-is-open
       border-bottom-left-radius: 0

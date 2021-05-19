@@ -22,3 +22,10 @@ export const Secondary = Template.bind({});
 Secondary.args = {
   text: 'Cancel',
 };
+
+export const Disabled = Template.bind({});
+Disabled.args = {
+  text: 'Submit',
+  primary: true,
+  disabled: true,
+};

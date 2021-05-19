@@ -29,5 +29,11 @@ Required.args = {
   required: true,
 };
 
+export const Disabled = Template.bind({});
+Disabled.args = {
+  label: 'First Name',
+  disabled: true,
+};
+
 export const WithoutLabel = Template.bind({});
 WithoutLabel.args = {};

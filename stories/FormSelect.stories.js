@@ -41,6 +41,16 @@ Expanded.args = {
   keepOpen: true,
 };
 
+export const Disabled = Template.bind({});
+Disabled.args = {
+  label: 'Are you a US Resident?',
+  options: [
+    { label: 'Yes', value: 'yes' },
+    { label: 'No', value: 'no' },
+  ],
+  disabled: true,
+};
+
 const generateOptions = (max) => {
   const options = [];
   for (let i = 1; i <= max; i += 1) {

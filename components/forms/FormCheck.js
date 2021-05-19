@@ -5,7 +5,12 @@ import classNames from 'classnames';
 import Check from '../../public/check.svg';
 
 function FormCheck({
-  onChange, className, label, isChecked, ...otherProps
+  onChange,
+  className,
+  disabled,
+  label,
+  isChecked,
+  ...otherProps
 }) {
   const uid = useUID();
   const labelComponent = label && (
@@ -24,6 +29,7 @@ function FormCheck({
         type="checkbox"
         id={uid}
         className="form-checkbox"
+        disabled={disabled}
         onChange={onChange}
         checked={isChecked}
       />
@@ -35,6 +41,7 @@ function FormCheck({
 
 FormCheck.propTypes = {
   className: PropTypes.string,
+  disabled: PropTypes.bool,
   onChange: PropTypes.func.isRequired,
   label: PropTypes.string,
   isChecked: PropTypes.bool,
@@ -42,6 +49,7 @@ FormCheck.propTypes = {
 
 FormCheck.defaultProps = {
   className: '',
+  disabled: false,
   label: undefined,
   isChecked: false,
 };

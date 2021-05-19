@@ -19,3 +19,9 @@ WithLabel.args = {
 
 export const WithoutLabel = Template.bind({});
 WithoutLabel.args = {};
+
+export const Disabled = Template.bind({});
+Disabled.args = {
+  label: 'Alerts',
+  disabled: true,
+};
