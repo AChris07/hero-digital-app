@@ -65,3 +65,98 @@
   margin-bottom: 10px
   font-weight: bold
   text-transform: uppercase
+
+.form-select__container
+  display: inline-flex
+  flex-direction: column
+  align-items: baseline
+
+.form-select__wrapper
+  position: relative
+
+.form-select__native
+  background-color: theme.$secondary-bg-color
+  border: 2px solid theme.$tertiary-color
+  border-radius: 4px
+  box-shadow: 0px 2px 5px theme.$primary-shadow-color
+
+  padding: 12px
+  min-width: 160px
+
+  position: relative
+  appearance: none
+
+.form-select__native-arrow
+  position: absolute
+  bottom: 18px
+  right: 30px
+
+.form-select__custom__container
+  position: absolute
+  top: 0
+  left: 0
+  display: none
+
+div.form-select__custom
+  border-radius: 4px
+  box-shadow: 0px 2px 5px theme.$primary-shadow-color
+
+  &__control
+    background-color: theme.$secondary-bg-color
+    border: 2px solid theme.$tertiary-color
+    box-shadow: none
+    padding: 10px
+
+    min-width: 160px
+
+    &:hover, &:focus
+      border-color: theme.$tertiary-color
+
+    &--menu-is-open
+      border-bottom-left-radius: 0
+      border-bottom-right-radius: 0
+      border-bottom: none
+
+      div.form-select__custom__indicator
+        transform: rotate(90deg)
+
+
+  &__indicator
+    transform: rotate(0deg)
+    transition: transform 0.5s ease
+
+  &__menu
+    background-color: theme.$secondary-bg-color
+    border: 2px solid theme.$tertiary-color
+
+    margin: 0
+    box-shadow: none
+    border-top: none
+    border-top-left-radius: 0
+    border-top-right-radius: 0
+    position: inherit
+
+  &__menu-list
+    padding: 0
+
+  &__option
+    border-top: 1px solid theme.$tertiary-color
+    border-bottom: 1px solid theme.$tertiary-color
+
+    &--is-selected
+      background-color: inherit
+      color: inherit
+      font-weight: bold
+
+    &--is-focused
+      background-color: theme.$tertiary-color-light
+
+.form-select__custom__indicator-separator
+  display: none
+
+@media (hover: hover)
+  div.form-select__custom__container
+    display: block
+
+  .form-select__native:focus ~ div.form-select__custom__container
+    display: none
