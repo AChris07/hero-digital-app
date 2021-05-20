@@ -24,12 +24,24 @@ export default function Home() {
     evt.stopPropagation();
 
     const form = evt.target;
-    let isFormValid = true;
+    let isFormInvalid = false;
+    const validMultiple = {};
     for (let i = 0; i < form.elements.length; i += 1) {
       const element = form.elements[i];
 
-      if (!element.checkValidity()) {
-        isFormValid = false;
+      const isElementValid = element.checkValidity();
+
+      if (isElementValid && element.multiple) {
+        validMultiple[element.type] = true;
+      }
+
+      if (!isElementValid) {
+        if (element.multiple) {
+          validMultiple[element.type] = validMultiple[element.type] || false;
+        } else {
+          isFormInvalid = true;
+        }
+
         const { name, validity } = element;
         let error;
 
@@ -42,7 +54,12 @@ export default function Home() {
       }
     }
 
-    if (isFormValid) console.log('Form is valid');
+    const hasInvalidMultiple = Object.keys(validMultiple).some(
+      (multiple) => !validMultiple[multiple],
+    );
+    isFormInvalid = isFormInvalid || hasInvalidMultiple;
+
+    if (!isFormInvalid) console.log('Form is valid');
   };
 
   return (
@@ -153,6 +170,7 @@ export default function Home() {
                 setField({ name: 'advances', value: !hasAdvances.value }),
               )}
               required
+              multiple
             />
             <FormCheck
               className="column is-half"
@@ -161,6 +179,7 @@ export default function Home() {
               isChecked={hasAlerts.value}
               onChange={() => dispatch(setField({ name: 'alerts', value: !hasAlerts.value }))}
               required
+              multiple
             />
             <FormCheck
               className="column is-half"
@@ -171,6 +190,7 @@ export default function Home() {
                 setField({ name: 'otherComms', value: !hasOtherComms.value }),
               )}
               required
+              multiple
             />
           </MultiCheckValidator>
 
