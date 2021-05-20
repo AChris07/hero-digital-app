@@ -4,7 +4,7 @@ import classNames from 'classnames';
 function Loader({ isVisible }) {
   return (
     isVisible && (
-      <div className="hd-loader__container">
+      <div className="hd-loader__container" role="alert" aria-busy="true">
         <div className="hd-loader">
           <div />
           <div />

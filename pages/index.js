@@ -79,9 +79,9 @@ export default function Home() {
   };
 
   const responseIcon = submitStatus === 'error' ? (
-    <i className="fas fa-exclamation" />
+    <i aria-hidden="true" className="fas fa-exclamation" />
   ) : (
-    <i className="fas fa-check" />
+    <i aria-hidden="true" className="fas fa-check" />
   );
 
   const responseClasses = classNames('hd-form-response', {

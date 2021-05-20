@@ -57,6 +57,8 @@ function FormSelect({
     }
   };
 
+  // TODO: Assign aria-hidden to react select, since native one should
+  // handle this case better
   return (
     <UIDConsumer>
       {(uid, seed) => (

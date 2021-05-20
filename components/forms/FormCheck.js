@@ -15,22 +15,27 @@ function FormCheck({
   isChecked,
   ...otherProps
 }) {
-  const labelComponent = (uid) => label && (
-  <label htmlFor={uid} className="form-checkbox__label">
+  const labelComponent = (uid, seed) => label && (
+  <label id={seed('label')} htmlFor={uid} className="form-checkbox__label">
     {label}
   </label>
   );
   const checkComponent = isChecked && (
-    <Check className="form-checkbox__check" onClick={onChange} />
+    <Check
+      aria-hidden="true"
+      className="form-checkbox__check"
+      onClick={onChange}
+    />
   );
   const classes = classNames('form-checkbox__container', className);
 
   return (
     <UIDConsumer>
-      {(uid) => (
+      {(uid, seed) => (
         <div {...otherProps} className={classes}>
           <div className="form-checkbox__wrapper">
             <input
+              aria-labelledby={seed('label')}
               type="checkbox"
               id={uid}
               className="form-checkbox"
@@ -43,7 +48,7 @@ function FormCheck({
             />
             {checkComponent}
           </div>
-          {labelComponent(uid)}
+          {labelComponent(uid, seed)}
         </div>
       )}
     </UIDConsumer>

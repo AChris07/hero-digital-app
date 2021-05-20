@@ -27,8 +27,8 @@ function FormInput({
       {errorMessage}
     </label>
   );
-  const labelComponent = (uid) => label && (
-  <label htmlFor={uid} className="form-input__label">
+  const labelComponent = (uid, seed) => label && (
+  <label id={seed('label')} htmlFor={uid} className="form-input__label">
     {`${label}${required ? '*' : ''}`}
   </label>
   );
@@ -40,11 +40,12 @@ function FormInput({
 
   return (
     <UIDConsumer>
-      {(uid) => (
+      {(uid, seed) => (
         <div {...otherProps} className={containerClasses}>
           {errorComponent(uid)}
-          {labelComponent(uid)}
+          {labelComponent(uid, seed)}
           <input
+            aria-labelledby={seed('label')}
             type={type}
             id={uid}
             name={name}
