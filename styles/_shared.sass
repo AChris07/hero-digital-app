@@ -1,3 +1,5 @@
+@use './breakpoints'
+
 .hd-button-group
   display: flex
   justify-content: flex-start
@@ -6,3 +8,5 @@
   button:not(:first-child)
     margin-left: 20px
 
+  @media screen and (max-width: breakpoints.$mobile)
+    justify-content: space-evenly

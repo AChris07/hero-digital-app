@@ -116,7 +116,7 @@ export default function Home() {
             <form type="submit" onSubmit={handleSubmit} noValidate>
               <div className="columns is-multiline">
                 <FormInput
-                  className="column is-half"
+                  className="column is-half is-full-mobile"
                   name="firstName"
                   label="First Name"
                   value={firstName.value}
@@ -130,7 +130,7 @@ export default function Home() {
                   required
                 />
                 <FormInput
-                  className="column is-half"
+                  className="column is-half is-full-mobile"
                   name="lastName"
                   label="Last Name"
                   value={lastName.value}
@@ -144,7 +144,7 @@ export default function Home() {
                   required
                 />
                 <FormInput
-                  className="column is-half"
+                  className="column is-half is-full-mobile"
                   name="email"
                   label="Email Address"
                   type="email"
@@ -159,7 +159,7 @@ export default function Home() {
                   required
                 />
                 <FormInput
-                  className="column is-half"
+                  className="column is-half is-full-mobile"
                   name="organization"
                   label="Organization"
                   value={organization.value}
@@ -172,7 +172,7 @@ export default function Home() {
                   )}
                 />
                 <FormSelect
-                  className="column is-half"
+                  className="column is-half is-full-mobile"
                   name="isEUResident"
                   label="EU Resident"
                   options={[
@@ -200,7 +200,7 @@ export default function Home() {
                 ]}
               >
                 <FormCheck
-                  className="column is-half"
+                  className="column is-half is-full-mobile"
                   name="advances"
                   label="Advances"
                   isChecked={hasAdvances.value}
@@ -211,7 +211,7 @@ export default function Home() {
                   multiple
                 />
                 <FormCheck
-                  className="column is-half"
+                  className="column is-half is-full-mobile"
                   name="alerts"
                   label="Alerts"
                   isChecked={hasAlerts.value}
@@ -222,7 +222,7 @@ export default function Home() {
                   multiple
                 />
                 <FormCheck
-                  className="column is-half"
+                  className="column is-half is-full-mobile"
                   name="otherComms"
                   label="Other Communications"
                   isChecked={hasOtherComms.value}
