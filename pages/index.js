@@ -11,6 +11,7 @@ import {
   getSubmitResponse,
   submitForm,
 } from '../store/formSlice';
+import Loader from '../components/common/Loader';
 import FormButton from '../components/forms/FormButton';
 import FormCheck from '../components/forms/FormCheck';
 import FormInput from '../components/forms/FormInput';
@@ -99,6 +100,7 @@ export default function Home() {
       </Head>
 
       <main>
+        <Loader isVisible={submitStatus === 'loading'} />
         {submitResponse ? (
           <h1 className={responseClasses}>
             {responseIcon}

@@ -39,7 +39,7 @@ export const formSlice = createSlice({
     },
   },
   extraReducers: {
-    [submitForm.loading]: (state) => {
+    [submitForm.pending]: (state) => {
       state.submit.status = 'loading';
       state.submit.response = null;
     },
