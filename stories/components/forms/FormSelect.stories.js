@@ -51,6 +51,17 @@ Disabled.args = {
   disabled: true,
 };
 
+export const WithError = Template.bind({});
+WithError.args = {
+  label: 'US Resident?',
+  options: [
+    { label: 'Yes', value: 'yes' },
+    { label: 'No', value: 'no' },
+  ],
+  required: true,
+  error: 'valueMissing',
+};
+
 const generateOptions = (max) => {
   const options = [];
   for (let i = 1; i <= max; i += 1) {
