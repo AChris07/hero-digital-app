@@ -7,6 +7,7 @@ import Check from '../../public/check.svg';
 function FormCheck({
   onChange,
   className,
+  name,
   disabled,
   label,
   isChecked,
@@ -31,6 +32,7 @@ function FormCheck({
               type="checkbox"
               id={uid}
               className="form-checkbox"
+              name={name}
               disabled={disabled}
               onChange={onChange}
               checked={isChecked}
@@ -46,6 +48,7 @@ function FormCheck({
 
 FormCheck.propTypes = {
   className: PropTypes.string,
+  name: PropTypes.string,
   disabled: PropTypes.bool,
   onChange: PropTypes.func.isRequired,
   label: PropTypes.string,
@@ -54,6 +57,7 @@ FormCheck.propTypes = {
 
 FormCheck.defaultProps = {
   className: '',
+  name: undefined,
   disabled: false,
   label: undefined,
   isChecked: false,

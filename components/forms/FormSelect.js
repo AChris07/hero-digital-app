@@ -8,6 +8,7 @@ import ExpandArrow from '../../public/text-expand-arrow.svg';
 function FormSelect({
   onChange,
   className,
+  name,
   disabled,
   label,
   options,
@@ -47,6 +48,7 @@ function FormSelect({
           <div className="form-select__wrapper">
             <select
               id={uid}
+              name={name}
               className="form-select__native"
               disabled={disabled}
               onChange={handleChange}
@@ -62,6 +64,7 @@ function FormSelect({
             <div className="form-select__custom__container">
               <Select
                 id={uid}
+                name={name}
                 instanceId={uid}
                 className="form-select__custom"
                 classNamePrefix="form-select__custom"
@@ -85,6 +88,7 @@ function FormSelect({
 FormSelect.propTypes = {
   onChange: PropTypes.func.isRequired,
   className: PropTypes.string,
+  name: PropTypes.string,
   disabled: PropTypes.bool,
   label: PropTypes.string,
   options: PropTypes.arrayOf(
@@ -100,6 +104,7 @@ FormSelect.propTypes = {
 
 FormSelect.defaultProps = {
   className: '',
+  name: undefined,
   disabled: false,
   label: undefined,
   placeholder: '- Select One -',

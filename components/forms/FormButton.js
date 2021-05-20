@@ -7,6 +7,7 @@ function FormButton({
   disabled,
   text,
   primary,
+  type,
   ...otherProps
 }) {
   const classes = classNames('form-button', { primary }, className);
@@ -16,7 +17,7 @@ function FormButton({
       {...otherProps}
       className={classes}
       disabled={disabled}
-      type="button"
+      type={type}
       onClick={onClick}
     >
       {text}
@@ -25,17 +26,20 @@ function FormButton({
 }
 
 FormButton.propTypes = {
-  onClick: PropTypes.func.isRequired,
+  onClick: PropTypes.func,
   className: PropTypes.string,
   disabled: PropTypes.bool,
   text: PropTypes.string.isRequired,
   primary: PropTypes.bool,
+  type: PropTypes.string,
 };
 
 FormButton.defaultProps = {
+  onClick: () => {},
   className: '',
   disabled: false,
   primary: false,
+  type: 'button',
 };
 
 export default FormButton;
