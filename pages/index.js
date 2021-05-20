@@ -5,6 +5,7 @@ import FormButton from '../components/forms/FormButton';
 import FormCheck from '../components/forms/FormCheck';
 import FormInput from '../components/forms/FormInput';
 import FormSelect from '../components/forms/FormSelect';
+import MultiCheckValidator from '../components/forms/MultiCheckValidator';
 
 export default function Home() {
   const dispatch = useDispatch();
@@ -139,20 +140,27 @@ export default function Home() {
             />
           </div>
 
-          <div className="columns is-multiline">
+          <MultiCheckValidator
+            className="columns is-multiline mt-3 p-3"
+            errors={[hasAdvances.error, hasAlerts.error, hasOtherComms.error]}
+          >
             <FormCheck
               className="column is-half"
               name="advances"
               label="Advances"
               isChecked={hasAdvances.value}
-              onChange={() => dispatch(setField({ name: 'advances', value: !hasAdvances }))}
+              onChange={() => dispatch(
+                setField({ name: 'advances', value: !hasAdvances.value }),
+              )}
+              required
             />
             <FormCheck
               className="column is-half"
               name="alerts"
               label="Alerts"
               isChecked={hasAlerts.value}
-              onChange={() => dispatch(setField({ name: 'alerts', value: !hasAlerts }))}
+              onChange={() => dispatch(setField({ name: 'alerts', value: !hasAlerts.value }))}
+              required
             />
             <FormCheck
               className="column is-half"
@@ -160,10 +168,11 @@ export default function Home() {
               label="Other Communications"
               isChecked={hasOtherComms.value}
               onChange={() => dispatch(
-                setField({ name: 'otherComms', value: !hasOtherComms }),
+                setField({ name: 'otherComms', value: !hasOtherComms.value }),
               )}
+              required
             />
-          </div>
+          </MultiCheckValidator>
 
           <div className="hd-button-group">
             <FormButton primary text="Submit" type="submit" />

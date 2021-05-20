@@ -10,6 +10,7 @@ function FormCheck({
   name,
   disabled,
   label,
+  required,
   isChecked,
   ...otherProps
 }) {
@@ -34,6 +35,7 @@ function FormCheck({
               className="form-checkbox"
               name={name}
               disabled={disabled}
+              required={required}
               onChange={onChange}
               checked={isChecked}
             />
@@ -52,6 +54,7 @@ FormCheck.propTypes = {
   disabled: PropTypes.bool,
   onChange: PropTypes.func.isRequired,
   label: PropTypes.string,
+  required: PropTypes.bool,
   isChecked: PropTypes.bool,
 };
 
@@ -60,6 +63,7 @@ FormCheck.defaultProps = {
   name: undefined,
   disabled: false,
   label: undefined,
+  required: false,
   isChecked: false,
 };
 
