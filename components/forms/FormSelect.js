@@ -29,6 +29,17 @@ function FormSelect({
     </components.DropdownIndicator>
   );
 
+  const optionValue = options.find((option) => option.value === value);
+
+  const handleChange = (evt) => {
+    if (evt.type === 'change') {
+      evt.stopPropagation();
+      onChange(evt.target.value);
+    } else {
+      onChange(evt.value);
+    }
+  };
+
   return (
     <div {...otherProps} className={classes}>
       {labelComponent}
@@ -37,7 +48,7 @@ function FormSelect({
           id={seed('input')}
           className="form-select__native"
           disabled={disabled}
-          onChange={onChange}
+          onChange={handleChange}
           value={value}
         >
           <option key={seed('empty-option')} disabled selected>
@@ -56,8 +67,8 @@ function FormSelect({
             className="form-select__custom"
             classNamePrefix="form-select__custom"
             options={options}
-            onChange={onChange}
-            value={value}
+            onChange={handleChange}
+            value={optionValue}
             components={{ DropdownIndicator }}
             isSearchable={false}
             placeholder={placeholder}

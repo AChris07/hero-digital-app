@@ -19,21 +19,23 @@ function FormCheck({
     </label>
   );
   const checkComponent = isChecked && (
-    <Check className="form-checkbox__check" />
+    <Check className="form-checkbox__check" onClick={onChange} />
   );
   const classes = classNames('form-checkbox__container', className);
 
   return (
     <div {...otherProps} className={classes}>
-      <input
-        type="checkbox"
-        id={uid}
-        className="form-checkbox"
-        disabled={disabled}
-        onChange={onChange}
-        checked={isChecked}
-      />
-      {checkComponent}
+      <div className="form-checkbox__wrapper">
+        <input
+          type="checkbox"
+          id={uid}
+          className="form-checkbox"
+          disabled={disabled}
+          onChange={onChange}
+          checked={isChecked}
+        />
+        {checkComponent}
+      </div>
       {labelComponent}
     </div>
   );
