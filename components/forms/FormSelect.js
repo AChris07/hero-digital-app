@@ -52,9 +52,6 @@ function FormSelect({
               onChange={handleChange}
               value={value}
             >
-              <option key={seed('empty-option')} disabled selected>
-                {placeholder}
-              </option>
               {options.map((opt) => (
                 <option key={seed(opt)} value={opt.value}>
                   {opt.label}
