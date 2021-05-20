@@ -1,6 +1,14 @@
 import Head from 'next/head';
 import { useSelector, useDispatch } from 'react-redux';
-import { resetForm, setField, setFieldErrors } from '../store/formSlice';
+import {
+  resetForm,
+  setField,
+  setFieldErrors,
+  getField,
+  getFormData,
+  getSubmitResponse,
+  submitForm,
+} from '../store/formSlice';
 import FormButton from '../components/forms/FormButton';
 import FormCheck from '../components/forms/FormCheck';
 import FormInput from '../components/forms/FormInput';
@@ -10,14 +18,16 @@ import MultiCheckValidator from '../components/forms/MultiCheckValidator';
 export default function Home() {
   const dispatch = useDispatch();
 
-  const firstName = useSelector((state) => state.form.firstName || {});
-  const lastName = useSelector((state) => state.form.lastName || {});
-  const email = useSelector((state) => state.form.email || {});
-  const organization = useSelector((state) => state.form.organization || {});
-  const isEUResident = useSelector((state) => state.form.isEUResident || {});
-  const hasAdvances = useSelector((state) => state.form.advances || {});
-  const hasAlerts = useSelector((state) => state.form.alerts || {});
-  const hasOtherComms = useSelector((state) => state.form.otherComms || {});
+  const firstName = useSelector(getField('firstName'));
+  const lastName = useSelector(getField('lastName'));
+  const email = useSelector(getField('email'));
+  const organization = useSelector(getField('organization'));
+  const isEUResident = useSelector(getField('isEUResident'));
+  const hasAdvances = useSelector(getField('advances'));
+  const hasAlerts = useSelector(getField('alerts'));
+  const hasOtherComms = useSelector(getField('otherComms'));
+  const formData = useSelector(getFormData);
+  const submitResponse = useSelector(getSubmitResponse);
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
@@ -59,7 +69,9 @@ export default function Home() {
     );
     isFormInvalid = isFormInvalid || hasInvalidMultiple;
 
-    if (!isFormInvalid) console.log('Form is valid');
+    if (!isFormInvalid) {
+      dispatch(submitForm(formData));
+    }
   };
 
   return (
@@ -74,131 +86,149 @@ export default function Home() {
       </Head>
 
       <main>
-        <header>
-          <h1>Sign up for email updates</h1>
-          <p>*Indicates a required field</p>
-        </header>
+        {submitResponse ? (
+          <h1>{submitResponse}</h1>
+        ) : (
+          <>
+            <header>
+              <h1>Sign up for email updates</h1>
+              <p>*Indicates a required field</p>
+            </header>
 
-        <form type="submit" onSubmit={handleSubmit} noValidate>
-          <div className="columns is-multiline">
-            <FormInput
-              className="column is-half"
-              name="firstName"
-              label="First Name"
-              value={firstName.value}
-              error={firstName.error}
-              onChange={(evt) => dispatch(
-                setField({
-                  name: 'firstName',
-                  value: evt.target.value,
-                }),
-              )}
-              required
-            />
-            <FormInput
-              className="column is-half"
-              name="lastName"
-              label="Last Name"
-              value={lastName.value}
-              error={lastName.error}
-              onChange={(evt) => dispatch(
-                setField({
-                  name: 'lastName',
-                  value: evt.target.value,
-                }),
-              )}
-              required
-            />
-            <FormInput
-              className="column is-half"
-              name="email"
-              label="Email Address"
-              type="email"
-              value={email.value}
-              error={email.error}
-              onChange={(evt) => dispatch(
-                setField({
-                  name: 'email',
-                  value: evt.target.value,
-                }),
-              )}
-              required
-            />
-            <FormInput
-              className="column is-half"
-              name="organization"
-              label="Organization"
-              value={organization.value}
-              error={organization.error}
-              onChange={(evt) => dispatch(
-                setField({
-                  name: 'organization',
-                  value: evt.target.value,
-                }),
-              )}
-            />
-            <FormSelect
-              className="column is-half"
-              name="isEUResident"
-              label="EU Resident"
-              options={[
-                { label: 'Yes', value: 'yes' },
-                { label: 'No', value: 'no' },
-              ]}
-              value={isEUResident.value}
-              error={isEUResident.error}
-              onChange={(value) => dispatch(
-                setField({
-                  name: 'isEUResident',
-                  value,
-                }),
-              )}
-              required
-            />
-          </div>
+            <form type="submit" onSubmit={handleSubmit} noValidate>
+              <div className="columns is-multiline">
+                <FormInput
+                  className="column is-half"
+                  name="firstName"
+                  label="First Name"
+                  value={firstName.value}
+                  error={firstName.error}
+                  onChange={(evt) => dispatch(
+                    setField({
+                      name: 'firstName',
+                      value: evt.target.value,
+                    }),
+                  )}
+                  required
+                />
+                <FormInput
+                  className="column is-half"
+                  name="lastName"
+                  label="Last Name"
+                  value={lastName.value}
+                  error={lastName.error}
+                  onChange={(evt) => dispatch(
+                    setField({
+                      name: 'lastName',
+                      value: evt.target.value,
+                    }),
+                  )}
+                  required
+                />
+                <FormInput
+                  className="column is-half"
+                  name="email"
+                  label="Email Address"
+                  type="email"
+                  value={email.value}
+                  error={email.error}
+                  onChange={(evt) => dispatch(
+                    setField({
+                      name: 'email',
+                      value: evt.target.value,
+                    }),
+                  )}
+                  required
+                />
+                <FormInput
+                  className="column is-half"
+                  name="organization"
+                  label="Organization"
+                  value={organization.value}
+                  error={organization.error}
+                  onChange={(evt) => dispatch(
+                    setField({
+                      name: 'organization',
+                      value: evt.target.value,
+                    }),
+                  )}
+                />
+                <FormSelect
+                  className="column is-half"
+                  name="isEUResident"
+                  label="EU Resident"
+                  options={[
+                    { label: 'Yes', value: 'yes' },
+                    { label: 'No', value: 'no' },
+                  ]}
+                  value={isEUResident.value}
+                  error={isEUResident.error}
+                  onChange={(value) => dispatch(
+                    setField({
+                      name: 'isEUResident',
+                      value,
+                    }),
+                  )}
+                  required
+                />
+              </div>
 
-          <MultiCheckValidator
-            className="columns is-multiline mt-3 p-3"
-            errors={[hasAdvances.error, hasAlerts.error, hasOtherComms.error]}
-          >
-            <FormCheck
-              className="column is-half"
-              name="advances"
-              label="Advances"
-              isChecked={hasAdvances.value}
-              onChange={() => dispatch(
-                setField({ name: 'advances', value: !hasAdvances.value }),
-              )}
-              required
-              multiple
-            />
-            <FormCheck
-              className="column is-half"
-              name="alerts"
-              label="Alerts"
-              isChecked={hasAlerts.value}
-              onChange={() => dispatch(setField({ name: 'alerts', value: !hasAlerts.value }))}
-              required
-              multiple
-            />
-            <FormCheck
-              className="column is-half"
-              name="otherComms"
-              label="Other Communications"
-              isChecked={hasOtherComms.value}
-              onChange={() => dispatch(
-                setField({ name: 'otherComms', value: !hasOtherComms.value }),
-              )}
-              required
-              multiple
-            />
-          </MultiCheckValidator>
+              <MultiCheckValidator
+                className="columns is-multiline mt-3 p-3"
+                errors={[
+                  hasAdvances.error,
+                  hasAlerts.error,
+                  hasOtherComms.error,
+                ]}
+              >
+                <FormCheck
+                  className="column is-half"
+                  name="advances"
+                  label="Advances"
+                  isChecked={hasAdvances.value}
+                  onChange={() => dispatch(
+                    setField({ name: 'advances', value: !hasAdvances.value }),
+                  )}
+                  required
+                  multiple
+                />
+                <FormCheck
+                  className="column is-half"
+                  name="alerts"
+                  label="Alerts"
+                  isChecked={hasAlerts.value}
+                  onChange={() => dispatch(
+                    setField({ name: 'alerts', value: !hasAlerts.value }),
+                  )}
+                  required
+                  multiple
+                />
+                <FormCheck
+                  className="column is-half"
+                  name="otherComms"
+                  label="Other Communications"
+                  isChecked={hasOtherComms.value}
+                  onChange={() => dispatch(
+                    setField({
+                      name: 'otherComms',
+                      value: !hasOtherComms.value,
+                    }),
+                  )}
+                  required
+                  multiple
+                />
+              </MultiCheckValidator>
 
-          <div className="hd-button-group">
-            <FormButton primary text="Submit" type="submit" />
-            <FormButton onClick={() => dispatch(resetForm())} text="Reset" />
-          </div>
-        </form>
+              <div className="hd-button-group">
+                <FormButton primary text="Submit" type="submit" />
+                <FormButton
+                  onClick={() => dispatch(resetForm())}
+                  text="Reset"
+                />
+              </div>
+            </form>
+          </>
+        )}
       </main>
     </>
   );
