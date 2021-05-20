@@ -1,5 +1,5 @@
 import Select, { components } from 'react-select';
-import { useUIDSeed } from 'react-uid';
+import { UIDConsumer } from 'react-uid';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
@@ -16,11 +16,10 @@ function FormSelect({
   keepOpen,
   ...otherProps
 }) {
-  const seed = useUIDSeed();
-  const labelComponent = label && (
-    <label htmlFor={seed('input')} className="form-select__label">
-      {label}
-    </label>
+  const labelComponent = (uid) => label && (
+  <label htmlFor={uid} className="form-select__label">
+    {label}
+  </label>
   );
   const classes = classNames('form-select__container', className);
   const DropdownIndicator = (props) => (
@@ -41,43 +40,48 @@ function FormSelect({
   };
 
   return (
-    <div {...otherProps} className={classes}>
-      {labelComponent}
-      <div className="form-select__wrapper">
-        <select
-          id={seed('input')}
-          className="form-select__native"
-          disabled={disabled}
-          onChange={handleChange}
-          value={value}
-        >
-          <option key={seed('empty-option')} disabled selected>
-            {placeholder}
-          </option>
-          {options.map((opt) => (
-            <option key={seed(opt)} value={opt.value}>
-              {opt.label}
-            </option>
-          ))}
-        </select>
-        <ExpandArrow className="form-select__native-arrow" />
-        <div className="form-select__custom__container">
-          <Select
-            id={seed('input')}
-            className="form-select__custom"
-            classNamePrefix="form-select__custom"
-            options={options}
-            onChange={handleChange}
-            value={optionValue}
-            components={{ DropdownIndicator }}
-            isSearchable={false}
-            placeholder={placeholder}
-            menuIsOpen={keepOpen || undefined}
-            isDisabled={disabled}
-          />
+    <UIDConsumer>
+      {(uid, seed) => (
+        <div {...otherProps} className={classes}>
+          {labelComponent(uid)}
+          <div className="form-select__wrapper">
+            <select
+              id={uid}
+              className="form-select__native"
+              disabled={disabled}
+              onChange={handleChange}
+              value={value}
+            >
+              <option key={seed('empty-option')} disabled selected>
+                {placeholder}
+              </option>
+              {options.map((opt) => (
+                <option key={seed(opt)} value={opt.value}>
+                  {opt.label}
+                </option>
+              ))}
+            </select>
+            <ExpandArrow className="form-select__native-arrow" />
+            <div className="form-select__custom__container">
+              <Select
+                id={uid}
+                instanceId={uid}
+                className="form-select__custom"
+                classNamePrefix="form-select__custom"
+                options={options}
+                onChange={handleChange}
+                value={optionValue}
+                components={{ DropdownIndicator }}
+                isSearchable={false}
+                placeholder={placeholder}
+                menuIsOpen={keepOpen || undefined}
+                isDisabled={disabled}
+              />
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
+      )}
+    </UIDConsumer>
   );
 }
 

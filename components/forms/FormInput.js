@@ -1,4 +1,4 @@
-import { useUID } from 'react-uid';
+import { UIDConsumer } from 'react-uid';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
@@ -11,26 +11,29 @@ function FormInput({
   required,
   ...otherProps
 }) {
-  const uid = useUID();
-  const labelComponent = label && (
-    <label htmlFor={uid} className="form-input__label">
-      {`${label}${required ? '*' : ''}`}
-    </label>
+  const labelComponent = (uid) => label && (
+  <label htmlFor={uid} className="form-input__label">
+    {`${label}${required ? '*' : ''}`}
+  </label>
   );
   const classes = classNames('form-input__container', className);
 
   return (
-    <div {...otherProps} className={classes}>
-      {labelComponent}
-      <input
-        type="text"
-        id={uid}
-        className="form-input"
-        disabled={disabled}
-        onChange={onChange}
-        placeholder={placeholder}
-      />
-    </div>
+    <UIDConsumer>
+      {(uid) => (
+        <div {...otherProps} className={classes}>
+          {labelComponent(uid)}
+          <input
+            type="text"
+            id={uid}
+            className="form-input"
+            disabled={disabled}
+            onChange={onChange}
+            placeholder={placeholder}
+          />
+        </div>
+      )}
+    </UIDConsumer>
   );
 }
 

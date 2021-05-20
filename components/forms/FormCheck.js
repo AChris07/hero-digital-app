@@ -1,4 +1,4 @@
-import { useUID } from 'react-uid';
+import { UIDConsumer } from 'react-uid';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
@@ -12,11 +12,10 @@ function FormCheck({
   isChecked,
   ...otherProps
 }) {
-  const uid = useUID();
-  const labelComponent = label && (
-    <label htmlFor={uid} className="form-checkbox__label">
-      {label}
-    </label>
+  const labelComponent = (uid) => label && (
+  <label htmlFor={uid} className="form-checkbox__label">
+    {label}
+  </label>
   );
   const checkComponent = isChecked && (
     <Check className="form-checkbox__check" onClick={onChange} />
@@ -24,20 +23,24 @@ function FormCheck({
   const classes = classNames('form-checkbox__container', className);
 
   return (
-    <div {...otherProps} className={classes}>
-      <div className="form-checkbox__wrapper">
-        <input
-          type="checkbox"
-          id={uid}
-          className="form-checkbox"
-          disabled={disabled}
-          onChange={onChange}
-          checked={isChecked}
-        />
-        {checkComponent}
-      </div>
-      {labelComponent}
-    </div>
+    <UIDConsumer>
+      {(uid) => (
+        <div {...otherProps} className={classes}>
+          <div className="form-checkbox__wrapper">
+            <input
+              type="checkbox"
+              id={uid}
+              className="form-checkbox"
+              disabled={disabled}
+              onChange={onChange}
+              checked={isChecked}
+            />
+            {checkComponent}
+          </div>
+          {labelComponent(uid)}
+        </div>
+      )}
+    </UIDConsumer>
   );
 }
 
