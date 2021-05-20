@@ -1,4 +1,5 @@
 @use 'theme'
+@use 'shared'
 @use 'forms'
 
 body
@@ -6,7 +7,23 @@ body
 
 main
   background-image: url('../public/texture.png')
-  background-repeat: repeat
+  background-repeat: round
+  padding: 10px 20px
+  position: absolute
+  top: 0
+  bottom: 0
+  left: 0
+  right: 0
+
+h1
+  font-size: 1.5rem
+  font-weight: bold
+  margin-bottom: 1rem
+
+p
+  font-size: 1rem
+  font-weight: normal
+  margin-bottom: 1rem
 
 input, button, select, textarea, optgroup, option
   font-family: inherit

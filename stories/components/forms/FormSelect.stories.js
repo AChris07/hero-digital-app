@@ -1,6 +1,6 @@
 import React from 'react';
 
-import FormSelect from '../components/forms/FormSelect';
+import FormSelect from '../../../components/forms/FormSelect';
 
 export default {
   title: 'Forms/Select',

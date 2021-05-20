@@ -36,7 +36,9 @@ export default function Home() {
                 { label: 'No', value: 'no' },
               ]}
             />
+          </div>
 
+          <div className="columns is-multiline">
             <FormCheck className="column is-half" label="Advances" />
             <FormCheck className="column is-half" label="Alerts" />
             <FormCheck
@@ -45,17 +47,9 @@ export default function Home() {
             />
           </div>
 
-          <div className="columns">
-            <FormButton
-              className="column is-half"
-              onClick={() => {}}
-              text="Submit"
-            />
-            <FormButton
-              className="column is-half"
-              onClick={() => {}}
-              text="Reset"
-            />
+          <div className="hd-button-group">
+            <FormButton primary onClick={() => {}} text="Submit" />
+            <FormButton onClick={() => {}} text="Reset" />
           </div>
         </form>
       </main>
