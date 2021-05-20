@@ -21,6 +21,10 @@ class MyDocument extends Document {
             rel="stylesheet"
             href="https://cdn.jsdelivr.net/npm/bulma@0.9.2/css/bulma.min.css"
           />
+          <script
+            src="https://kit.fontawesome.com/066c3daead.js"
+            crossOrigin="anonymous"
+          />
         </Head>
         <body>
           <Main />

@@ -9,10 +9,17 @@ export const initialState = {
   },
 };
 
-export const submitForm = createAsyncThunk('form/submit', async (formData) => {
-  const response = await submit(formData);
-  return response.data;
-});
+export const submitForm = createAsyncThunk(
+  'form/submit',
+  async (formData, thunkAPI) => {
+    try {
+      const response = await submit(formData);
+      return response.data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.response.data);
+    }
+  },
+);
 
 export const formSlice = createSlice({
   name: 'form',
@@ -41,7 +48,7 @@ export const formSlice = createSlice({
       state.submit.response = action.payload.message;
     },
     [submitForm.rejected]: (state, action) => {
-      state.submit.status = 'idle';
+      state.submit.status = 'error';
       state.submit.response = action.payload.message;
     },
   },

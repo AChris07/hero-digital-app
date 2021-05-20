@@ -1,11 +1,13 @@
 import Head from 'next/head';
 import { useSelector, useDispatch } from 'react-redux';
+import classNames from 'classnames';
 import {
   resetForm,
   setField,
   setFieldErrors,
   getField,
   getFormData,
+  getSubmitStatus,
   getSubmitResponse,
   submitForm,
 } from '../store/formSlice';
@@ -27,6 +29,7 @@ export default function Home() {
   const hasAlerts = useSelector(getField('alerts'));
   const hasOtherComms = useSelector(getField('otherComms'));
   const formData = useSelector(getFormData);
+  const submitStatus = useSelector(getSubmitStatus);
   const submitResponse = useSelector(getSubmitResponse);
 
   const handleSubmit = (evt) => {
@@ -74,6 +77,16 @@ export default function Home() {
     }
   };
 
+  const responseIcon = submitStatus === 'error' ? (
+    <i className="fas fa-exclamation" />
+  ) : (
+    <i className="fas fa-check" />
+  );
+
+  const responseClasses = classNames('hd-form-response', {
+    'hd-form-response--error': submitStatus === 'error',
+  });
+
   return (
     <>
       <Head>
@@ -87,7 +100,10 @@ export default function Home() {
 
       <main>
         {submitResponse ? (
-          <h1>{submitResponse}</h1>
+          <h1 className={responseClasses}>
+            {responseIcon}
+            <span>{submitResponse}</span>
+          </h1>
         ) : (
           <>
             <header>
