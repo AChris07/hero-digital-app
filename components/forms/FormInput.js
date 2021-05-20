@@ -32,6 +32,7 @@ function FormInput({
     {`${label}${required ? '*' : ''}`}
   </label>
   );
+
   const containerClasses = classNames('form-input__container', className);
   const inputClasses = classNames('form-input', {
     'form-input--invalid': error,

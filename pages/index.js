@@ -32,10 +32,12 @@ export default function Home() {
         const { name, validity } = element;
         let error;
 
-        if (validity.valueMissing) error = 'valueMissing';
-        if (validity.typeMismatch) error = 'typeMismatch';
+        if (name) {
+          if (validity.valueMissing) error = 'valueMissing';
+          if (validity.typeMismatch) error = 'typeMismatch';
 
-        dispatch(setFieldErrors({ name, error }));
+          dispatch(setFieldErrors({ name, error }));
+        }
       }
     }
 
@@ -126,12 +128,14 @@ export default function Home() {
                 { label: 'No', value: 'no' },
               ]}
               value={isEUResident.value}
+              error={isEUResident.error}
               onChange={(value) => dispatch(
                 setField({
                   name: 'isEUResident',
                   value,
                 }),
               )}
+              required
             />
           </div>
 

@@ -5,6 +5,17 @@
   flex-direction: column
   align-items: baseline
 
+.form-select__error
+  color: theme.$error-color
+  font-style: italic
+  font-weight: bold
+  min-height: 1.5rem
+  margin-bottom: 1rem
+  visibility: hidden
+
+  &--is-shown
+    visibility: visible
+
 .form-select__label
   margin-bottom: 10px
   font-weight: bold
@@ -12,6 +23,11 @@
 
 .form-select__wrapper
   position: relative
+
+.form-select--invalid
+  &.form-select__native, .form-select__custom__control
+    background-color: theme.$error-bg-color
+    border-color: theme.$error-border-color
 
 .form-select__native
   background-color: theme.$secondary-bg-color

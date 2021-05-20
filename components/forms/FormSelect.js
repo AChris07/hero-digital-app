@@ -13,16 +13,33 @@ function FormSelect({
   label,
   options,
   placeholder,
+  required,
   value,
+  error,
   keepOpen,
   ...otherProps
 }) {
+  let errorMessage = null;
+  if (error === 'valueMissing') errorMessage = `${label || name} is required`;
+
+  const errorClasses = classNames('form-select__error', {
+    'form-select__error--is-shown': error,
+  });
+  const errorComponent = (uid) => (
+    <label htmlFor={uid} className={errorClasses}>
+      {errorMessage}
+    </label>
+  );
   const labelComponent = (uid) => label && (
   <label htmlFor={uid} className="form-select__label">
-    {label}
+    {`${label}${required ? '*' : ''}`}
   </label>
   );
-  const classes = classNames('form-select__container', className);
+
+  const containerClasses = classNames('form-select__container', className);
+  const inputClasses = (specificClass) => classNames(specificClass, {
+    'form-select--invalid': error,
+  });
   const DropdownIndicator = (props) => (
     <components.DropdownIndicator {...props}>
       <ExpandArrow />
@@ -43,17 +60,23 @@ function FormSelect({
   return (
     <UIDConsumer>
       {(uid, seed) => (
-        <div {...otherProps} className={classes}>
+        <div {...otherProps} className={containerClasses}>
+          {errorComponent(uid)}
           {labelComponent(uid)}
           <div className="form-select__wrapper">
             <select
               id={uid}
               name={name}
-              className="form-select__native"
+              className={inputClasses('form-select__native')}
               disabled={disabled}
               onChange={handleChange}
+              required={required}
               value={value}
+              defaultValue=""
             >
+              <option key={seed('empty')} value="" disabled>
+                - Select One -
+              </option>
               {options.map((opt) => (
                 <option key={seed(opt)} value={opt.value}>
                   {opt.label}
@@ -64,9 +87,8 @@ function FormSelect({
             <div className="form-select__custom__container">
               <Select
                 id={uid}
-                name={name}
                 instanceId={uid}
-                className="form-select__custom"
+                className={inputClasses('form-select__custom')}
                 classNamePrefix="form-select__custom"
                 options={options}
                 onChange={handleChange}
@@ -76,6 +98,7 @@ function FormSelect({
                 placeholder={placeholder}
                 menuIsOpen={keepOpen || undefined}
                 isDisabled={disabled}
+                required={required}
               />
             </div>
           </div>
@@ -98,7 +121,9 @@ FormSelect.propTypes = {
     }),
   ).isRequired,
   placeholder: PropTypes.string,
+  required: PropTypes.bool,
   value: PropTypes.string,
+  error: PropTypes.string,
   keepOpen: PropTypes.bool,
 };
 
@@ -108,7 +133,9 @@ FormSelect.defaultProps = {
   disabled: false,
   label: undefined,
   placeholder: '- Select One -',
+  required: false,
   value: undefined,
+  error: undefined,
   keepOpen: false,
 };
 
